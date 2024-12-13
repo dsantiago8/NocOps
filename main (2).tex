@@ -1,0 +1,223 @@
+\documentclass[10pt,twocolumn]{article}
+
+% use the oxycomps style file
+\usepackage{oxycomps}
+\usepackage{indentfirst}
+
+
+% usage: \fixme[comments describing issue]{text to be fixed}
+% define \fixme as not doing anything special
+\newcommand{\fixme}[2][]{#2}
+% overwrite it so it shows up as red
+\renewcommand{\fixme}[2][]{\textcolor{red}{#2}}
+% overwrite it again so related text shows as footnotes
+%\renewcommand{\fixme}[2][]{\textcolor{red}{#2\footnote{#1}}}
+
+% read references.bib for the bibtex data
+\bibliography{references}
+
+% include metadata in the generated pdf file
+\pdfinfo{
+    /Title (NocOps: Sleep Better)
+    /Author (Diego Santiago)
+}
+
+% set the title and author information
+\title{NocOps: Sleep Better}
+\author{Diego Santiago}
+\affiliation{Occidental College}
+\email{dsantiago@oxy.edu}
+
+
+\begin{document}
+
+\maketitle
+
+\section{Problem Statement}
+
+Sleep is crucial for maintaining overall well-being and health, yet millions of individuals struggle with establishing healthy sleep patterns. Sleep apps offer a potential solution by tracking sleep habits and providing feedback, but these apps often face challenges in keeping users engaged. Even when users initially download these apps, many struggle to maintain consistent usage, ultimately reducing the effectiveness of the app in improving their sleep.
+
+The problem that this project seeks to address is user disengagement in sleep apps. The inability to keep users engaged often results in a lack of behavioral change, with many users abandoning the app shortly after initial usage. This is particularly problematic because sleep is an essential health factor, and inconsistent engagement with a sleep tracking app can prevent individuals from achieving better sleep quality.
+
+The solution is to create an engaging sleep app that integrates gamification and actionable insights to keep users motivated and help them make informed decisions about their sleep patterns. By using gamification strategies, such as rewards, challenges, and a pet, the app aims to maintain user motivation over time. Additionally, by leveraging a Mamdani fuzzy logic system\cite{mamdani-system}, users will receive personalized feedback about their sleep quality, which is based on their sleep duration, heart rate, and activity level.
+
+This project aims to address both the lack of engagement in sleep apps and the need for actionable feedback by integrating these features into a comprehensive user experience.
+
+\section{Technical Background}
+
+To fully understand the proposed solution, it's important to explore the core concept of fuzzy logic. Fuzzy logic is a mathematical approach to handling uncertainty and imprecision. In traditional Boolean logic, variables are either true or false (0 or 1), but in fuzzy logic, variables can take on values between 0 and 1, representing varying degrees of truth\cite{fuzzy-logic}. This ability to model uncertainty is particularly valuable in real-world scenarios, such as assessing sleep quality, where conditions and outcomes are not always black and white.
+
+In the context of sleep quality, the conditions and outcomes that the Mamdani fuzzy logic system aims to model are not black and white because sleep, like many other physiological processes, is influenced by a wide range of factors that interact in complex, non-linear ways. Unlike traditional systems that rely on rigid thresholds or simple binary conditions (e.g., sleep duration is either "enough" or "not enough"), fuzzy logic allows for more nuanced representations of these conditions, reflecting the inherent variability of human sleep patterns.
+
+\subsection{Fuzzy Logic System}
+
+The Mamdani Fuzzy Logic System, which is used for this project, is one of the most widely used fuzzy inference systems. This system allows for a human-readable and interpretable output, making it ideal for user-centric applications like sleep tracking. The Mamdani system works by defining fuzzy rules that associate input variables (e.g., sleep duration, heart rate, and activity level) with an output (overall sleep quality). These rules are based on linguistic variables such as “low,” “medium,” or “high” and operate on fuzzy sets rather than fixed numerical values.
+For this project, the Mamdani fuzzy logic system will utilize three main inputs:
+
+\begin{enumerate}
+\item Sleep Duration: The number of hours a user sleeps.
+\item Heart Rate: The user's heart rate during sleep.
+\item Activity Level: The level of physical activity during the day.
+\item Sleep Goal: The number of hour a user has set out to sleep.
+\end{enumerate}
+
+Each input will be mapped to fuzzy sets (such as short, medium, and long for sleep duration), and fuzzy rules will be established to relate these inputs to an overall sleep quality score. The Mamdani system will then use defuzzification\cite{fuzzy-logic} to convert the fuzzy output into a crisp score ranging from 0 to 100, representing the overall quality of the user’s sleep.
+By incorporating fuzzy logic into the system, users will receive a personalized sleep score that accounts for the complexity and variability of sleep factors, which standard algorithms fail to capture.
+
+
+\subsection{Sleep Science}
+
+Sleep plays a crucial role in maintaining overall health, with its importance extending beyond mere rest. Understanding the various stages of sleep—Light, Deep, and REM\cite{sleep-stages}—helps to highlight the different contributions each stage makes to physical recovery and cognitive function. Effective sleep tracking apps, such as those leveraging devices like the Apple Watch, offer valuable insights into users' sleep cycles. These stages interact dynamically with other factors, making it crucial to track not just sleep duration but also sleep quality and consistency.
+
+\textbf{Health Data and Tracking:} Modern wearable devices like the Apple Watch provide extensive data on various health metrics, including sleep duration, heart rate, movement, and activity levels\cite{digital-sleep-technologies}. By syncing this data with health apps through frameworks such as HealthKit (used by Apple's Health app), users can receive a detailed overview of not only how long they sleep, but also how well they sleep. This information is invaluable for understanding the quality of one's rest, as well as providing actionable insights that could lead to improved sleep hygiene.
+
+\subsection{Forming Habits}
+
+\textbf{Behavioral Science and Habit Formation:} Long-term behavior change, particularly in the area of health, is a multifaceted challenge. For users to consistently adopt healthy sleep routines, they must be provided with the right combination of motivation\cite{positive-reinforcement}, education, and reinforcement. Studies have shown that positive reinforcement, coupled with actionable feedback, plays a significant role in helping individuals adopt and maintain healthier habits. This is where sleep apps can excel: by providing rewards\cite{positive-reinforcement}, setting achievable goals, and offering personalized suggestions, these apps help users stay committed to improving their sleep habits over time.
+
+\section{Prior Work}
+
+The domain of sleep tracking and improvement has seen a significant increase in interest, particularly with the advent of wearable devices and mobile applications aimed at improving health and wellness. Various products, both hardware and software-based, have been designed to assist users in understanding and improving their sleep patterns. Some devices, such as the WHOOP Strap\cite{digital-sleep-technologies}, have become prominent in the wearable fitness and health technology market. The WHOOP device, which includes a subscription model, offers detailed insights into a user’s sleep, heart rate, recovery, and other metrics. However, its focus is largely on athletes, offering in-depth analysis to help users optimize their training and recovery. The subscription-based model of WHOOP also highlights a growing trend in the health-tech industry where users pay monthly fees for personalized insights and ongoing data collection, which aligns with the trend toward "fitness/wellness as a service."
+
+In contrast, more general sleep apps, such as Sleep Cycle,  focus primarily on "guiding you to better sleep"\cite{sleep-cycle-app} by tracking sleep patterns. Some apps, like Calm and Headspace, do not keep track of sleep related data. Istead, these apps offer "coaching" through bedtime stories, meditation, and sounds meant to induce sleep.
+
+
+\section{Methods}
+The primary objective of this project is to improve user engagement and provide accurate assessments of sleep quality. To achieve this, a fuzzy logic system is used to calculate a personalized sleep quality score, integrating key sleep-related factors such as sleep duration, heart rate (minimum, average, and maximum), activity level, and sleep goal. By utilizing fuzzy logic, the system can handle the inherent variability and imprecision of sleep data, providing a more nuanced evaluation than traditional binary methods. This approach is designed to ensure that users receive actionable, personalized insights based on their unique sleep patterns.
+
+The system works by defining fuzzy sets\cite{mamdani-system} for each input variable, which are then combined through a set of fuzzy rules to generate an overall sleep quality score. These rules account for the complex interactions between the inputs, allowing for a flexible and adaptable system that reflects real-world sleep conditions. The final score is derived through a process called defuzzification, which translates the fuzzy results into a crisp value, making it easier for users to interpret and apply the feedback.
+
+In the following sections, an outline of the key steps in the fuzzy logic process is presented, from defining fuzzy sets to generating the final sleep quality score.
+
+\subsection{Step 1: Defining Fuzzy Sets}
+The first step is defining fuzzy sets for each input:
+
+\begin{enumerate}
+    \item Sleep Duration: Categorized into “short,” “medium,” and “long” based on predefined thresholds for what constitutes a short or long sleep period (i.e., less than 6 hours for short, between 6-8 hours for medium, and above 8 hours for long).
+    \item Heart Rate: Categorized into “low,” “normal,” and “high” based on standard heart rate ranges for sleeping adults.
+    \item Activity Level: Categorized into “low,” “moderate,” and “high” based on the number of steps or exercise activity during the day.
+\end{enumerate}
+
+
+\subsection{Step 2: Creating Fuzzy Rules}
+In the context of the Mamdani fuzzy logic system in place, the rule base defines the relationships between the input variables (sleep duration, heart rate, and activity level) and the output (sleep quality). These rules help determine how different combinations of input values influence the overall sleep quality score. Below are the rules implemented in the fuzzy inference system:
+your rule base can be described by a set of conditional statements, typically in the form of "If-Then" rules. Here are some example rules for your system:
+
+\begin{enumerate}
+    \item Sleep Duration Rules
+        \begin{itemize}
+            \item If sleep duration is short and heart rate is high, then sleep quality is poor.
+            \item If sleep duration is medium and heart rate is normal, then sleep quality is moderate.
+            \item If sleep duration is long and heart rate is normal, then sleep quality is good.
+        \end{itemize}
+    \item Heart Rate Rules
+        \begin{itemize}
+            \item If sleep duration is short and heart rate is high, then sleep quality is poor.
+            \item If sleep duration is medium and heart rate is high, then sleep quality is moderate.
+            \item If sleep duration is medium and heart rate is low, then sleep quality is good.
+            \item If sleep duration is long and heart rate is low, then sleep quality is excellent.
+            \item If sleep duration is long and heart rate is normal, then sleep quality is good.
+        \end{itemize}
+    \item Activity Level Rules
+        \begin{itemize}
+            \item If sleep duration is short and activity level is low, then sleep quality is poor.
+            \item If sleep duration is medium and activity level is low, then sleep quality is moderate.
+            \item If sleep duration is medium and activity level is high, then sleep quality is good.
+            \item If sleep duration is long and activity level is high, then sleep quality is excellent.
+        \end{itemize}
+    \item Combined Rules (Final Output)
+    
+    These rules combine the effects of sleep duration, heart rate, and activity level to generate the final sleep quality score:
+        \begin{itemize}
+            \item If sleep duration is short, heart rate is high, and activity level is low, then sleep quality is poor.
+            \item If sleep duration is medium, heart rate is normal, and activity level is low, then sleep quality is moderate.
+            \item If sleep duration is long, heart rate is normal, and activity level is high, then sleep quality is good.
+            \item If sleep duration is long, heart rate is low, and activity level is high, then sleep quality is excellent.
+        \end{itemize}
+\end{enumerate}
+
+
+\subsection{Step 3: Defuzzification}
+Once the fuzzy rules are applied, the fuzzy output is defuzzified to generate a crisp value. This step converts the fuzzy output into a clear sleep score ranging from 0 (poor sleep) to 100 (excellent sleep). The Mamdani method for defuzzification is employed, which calculates the weighted average of the fuzzy output values.
+
+The Mamdani fuzzy logic system is the ideal choice for this sleep app due to its intuitive nature and human-readable outputs, making it well-suited for user-centric applications\cite{mamdani-system}. Unlike other fuzzy logic systems, Mamdani provides a straightforward and easily interpretable rule base, allowing users to understand the reasoning behind their sleep quality scores. This clarity is crucial in helping users make informed decisions about improving their sleep habits.
+
+Additionally, the Mamdani system is widely accepted and proven effective across various domains, from control systems to health applications, due to its simplicity and effectiveness. By using a Mamdani-based fuzzy inference system, the app can generate a personalized sleep quality score, and in the future it can easily be modified to provide actionable insights without overwhelming users with complex algorithms. Furthermore, it's ability to combine multiple inputs (such as sleep duration, heart rate, and activity level) with flexible fuzzy rules ensures that the system reflects the complexities of real-life sleep patterns, making it a robust tool for providing practical recommendations to users.
+
+\subsection{Gamification Features}
+
+ The app incorporates a range of gamification strategies designed to enhance user engagement and motivate healthier sleep habits. These strategies include a variety of interactive elements such as daily sleep challenges, rewards, and a pet system that helps personalize the experience.
+
+\textbf{Daily Sleep Challenge:} Users are encouraged to meet a specific daily sleep goal. For example, users may be challenged to maintain a consistent number of hours of sleep each night to reduce variability in their sleep patterns over the course of a week. These challenges foster a sense of accomplishment and keep users engaged by setting clear, achievable targets.
+
+\textbf{Health Points and Pet System:} A key element of the gamification strategy is the introduction of a pet (see figuire 1, left) that the user cares for by maintaining consistent sleep habits. If the user fails to log any sleep the previous night, their pet loses 10 health points, creating an incentive to engage with the app daily to avoid a negative consequence. This feature ties users' actions to an emotional, interactive element, further encouraging consistency.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.2\textwidth]{images/pet.png}
+    \includegraphics[width=0.2\textwidth]{images/pet.png}
+    \caption{User's pet (left) and shop (right)}
+    \label{fig:pet}
+\end{figure}
+
+
+\textbf{Point System with Multipliers:} Users earn points daily by engaging with the app, with the base reward being 10 points per day. These points are multiplied based on streaks, which track the number of consecutive days the app has been used. The streak multiplier encourages regular use, with a cap at 7 days to maintain a balanced and attainable reward system. This feature motivates users to stay engaged without making long-term streaks feel unattainable. (See figure 1, right)
+
+\textbf{Shop for Customization:} To enhance personalization, the app includes a shop where users can purchase items to customize their experience. Currently, the shop offers two main types of purchases: themes and treats. Themes allow users to change the aesthetic of the app and switch back and forth between different options according to preference. Treats, on the other hand, add 10 health points to the user’s pet, providing another layer of engagement by connecting sleep habits with in-app rewards. (See figure 1, right)
+
+These gamification features collectively aim to sustain user motivation by creating a fun, rewarding, and interactive experience that integrates sleep health improvement with elements of play and personal achievement.
+
+
+\section{Evaluation Metrics}
+
+The success of this project hinges on both user engagement and the effectiveness of the app in improving sleep quality over time. To assess the impact of the app, several key metrics will be tracked, each providing insights into different aspects of user interaction and the app's ability to promote healthier sleep habits. These metrics include:
+
+\textbf{User Retention:} This metric measures the percentage of users who continue to use the app over an extended period, particularly after their initial interactions. High user retention is a strong indicator of engagement and satisfaction, as it reflects the app's ability to maintain user interest and foster long-term habits. Increased retention directly correlates with the success of the gamification features, which are designed to keep users motivated by offering continuous rewards, challenges, and personalized feedback. Retention rates will help assess whether the app's gamified elements are effectively sustaining user engagement and whether the app becomes an integral part of the user's daily routine.
+
+\textbf{Interaction Frequency:} This metric tracks how frequently users interact with the app, especially in relation to notifications, challenges, and pet care activities. Higher interaction frequency suggests that users are finding the app engaging and that they perceive its features as valuable. A high level of interaction is essential for ensuring that users are consistently logging their sleep data, completing challenges, and taking advantage of the app’s features, such as the point system and achievements. By monitoring this metric, we can gauge how often users are motivated to revisit the app and take action toward improving their sleep patterns.
+
+\textbf{Sleep Quality Improvement:} This metric tracks the changes in users' sleep quality over time, providing direct insight into whether the app's features are effective in improving sleep habits. Sleep quality will be measured using a combination of factors, such as average sleep duration, sleep consistency, and heart rate during sleep, all of which are integrated into the app’s personalized feedback system. A measurable improvement in these parameters indicates that the app’s actionable insights, including recommendations based on the Mamdani fuzzy logic system, are having a positive impact. Users who show improvement in their sleep quality are more likely to continue engaging with the app, suggesting that the app’s ability to provide valuable, actionable data is key to both improving sleep and fostering ongoing use.
+
+\section{Results and Discussion}
+
+The integration of gamification and actionable insights has yielded promising results during the initial testing phase, demonstrating the potential of these features to enhance user engagement and improve sleep quality. By incorporating both motivational elements and a personalized sleep quality score, the app has successfully created an engaging user experience that encourages consistent use and positive behavioral change in the short term.
+
+\subsection{Gamification Impact on User Engagement} One of the standout features of the app is its gamification elements, including a daily sleep challenge, a shop, and the pet health system. These features have proven to be highly effective in boosting user engagement. Early user data indicates that these gamified aspects, particularly the pet health points and streak tracking, have motivated users to return to the app consistently. For example, users who actively participated in the sleep challenge showed higher interaction frequency, with many returning daily to track their progress and collect rewards. This consistent engagement is crucial for long-term behavioral change, as it keeps users invested in improving their sleep habits over time.
+
+That being said, it is important to note that no assumptions can be made about the long-term effects of these features at this stage. Given the limited testing period and the relatively small user pool, it is difficult to predict whether these initial engagement trends will continue over time or result in sustained improvements in sleep quality. In addition, longer-term studies with a broader and more diverse group of users will be necessary to fully assess the impact of the gamification elements on both engagement and sleep improvement.
+
+\subsection{Actionable Insights Driving Positive Change} The app's use of the Mamdani fuzzy logic system to generate personalized sleep quality scores and provide actionable insights has also shown considerable promise. Users have reported that the personalized feedback, based on their sleep duration, heart rate, and activity level, has been a valuable tool for identifying patterns and areas for improvement. For instance, when users noticed a decline in their sleep quality score—due to factors like insufficient sleep duration or irregular heart rate—many took immediate steps to adjust their routines. Some users opted to increase their sleep duration or make lifestyle changes, such as reducing screen time before bed or adjusting exercise habits, in response to the feedback. This indicates that the actionable insights provided by the fuzzy logic system are not only informative but also empowering users to make informed decisions about their health and sleep patterns.
+
+\subsection{Challenges in Clarity and User Understanding} Despite the overall short-term success of the app's features, certain challenges remain, particularly with the clarity and interpretability of the feedback generated by the fuzzy logic system. While the system provides useful insights, there is an ongoing need to ensure that the feedback is presented in a clear and actionable way. Some users have reported that the sleep quality score, although helpful, can sometimes be difficult to fully interpret, especially for those who did not know how the fuzzy logic system worked and the input variables it worked with. To address this, further refinements to the user interface (UI) will be necessary. For instance, providing more intuitive visualizations could help users better understand the relationship between their sleep data and the steps they should take to improve sleep quality.
+
+Additionally, there is an opportunity to enhance the personalization of the feedback. By tailoring the advice more closely to individual sleep patterns and behaviors, the app can offer more specific guidance that resonates with users. For example, users with consistently low activity levels may benefit from targeted advice on how to improve physical activity to enhance sleep quality, while users with irregular sleep schedules may receive tips on improving consistency.
+
+\subsection{Moving Forward} The promising results from early tests indicate that combining gamification with actionable insights is an effective strategy for improving user engagement and driving positive changes in sleep habits. However, for the app to achieve even greater success, continued iteration and enhancement are essential. The next steps will involve refining the fuzzy logic system's output to improve its clarity, making the feedback more accessible and easier to implement for users. Additionally, more advanced personalization features, such as adaptive sleep goals based on individual progress, could further enhance the user experience and engagement.
+
+Overall, this project has shown that by leveraging both gamification and personalized, actionable insights, it is possible to create a sleep app that not only tracks sleep but actively motivates users to improve their sleep quality. With continued improvements and user feedback, the app has the potential to become a valuable tool for users seeking to enhance their sleep habits and overall well-being.
+
+\section{Ethical Considerations}
+
+While this project primarily focuses on improving sleep quality and user engagement, it is important to consider potential privacy concerns associated with health data. In light of this, the project carefully considers privacy and data security concerns. All user data, including sleep data and heart rate metrics, is securely stored, with transparency about how the data is used. Users are given full control over what data they share with the app, with the ability to opt-out at any time.
+
+Ethical issues related to bias and diversity have also been considered. While the app uses generalized fuzzy logic rules, it is important to recognize that individual sleep needs may vary based on factors like culture, lifestyle, and health. The app will continue to refine its fuzzy logic system to consider a more diverse set of sleep behaviors and ensure that the advice provided is applicable to a broad user base.
+
+One of the biggest challenges in the sleep app industry is the cost and accessibility of these tools. Many sleep apps, particularly those with premium features, are often subjected to a "freemium" pricing model. This model typically offers basic functionality for free but requires users to pay for more advanced features, such as detailed sleep analytics or personalized insights\cite{sleep-app-paywall}. For example, while the core functionality may be free, users may need to subscribe to access in-depth data, longer-term insights, or additional gamification elements. This subscription-based model can make it difficult for lower-income individuals to access the full benefits of the app, limiting their ability to improve their sleep health.
+
+To mitigate these issues, this app aims to provide all functionalities for free, ensuring that essential sleep data and actionable insights remain accessible to all users. The goal is to make the app a tool that can be universally utilized, without financial barriers hindering access to critical features.
+
+Beyond affordability, accessibility remains a key consideration. It is essential that the app is designed to be user-friendly and accessible to individuals with various disabilities. Many existing sleep apps fail to fully address the needs of users with physical or sensory impairments. Unfortunately, this app fails to implement features such as screen reader compatibility, high color contrast for visually impaired users, and intuitive navigation for those with limited dexterity. By prioritizing accessibility in the future, the app will strive to make a meaningful contribution to improving the sleep health of a diverse population, ensuring that technology does not unintentionally exclude or disadvantage certain groups based on physical limitations.
+
+In the realm of accessibility, another key consideration is the requirement for users to have an Apple Watch in order to fully utilize the app's sleep scoring capabilities. While many users may already own such devices, this requirement could unintentionally exclude individuals who cannot afford wearables or those who choose not to use them. To address this, the app provides a manual sleep tracking system, allowing users to log their sleep duration without the need for an Apple Watch. However, it’s important to note that while manual tracking offers a basic alternative, an Apple Watch is essential for capturing additional data such as sleep cycles, heart rate, and activity levels. This wearable device provides a more comprehensive and accurate view of sleep patterns, enabling the app to deliver more detailed insights and personalized recommendations.
+
+\section{Conclusion}
+
+The development of NocOps, an app aimed at improving user engagement in sleep tracking and enhancing sleep quality, represents a step forward in the evolving intersection of health technology and behavioral science. This project not only leverages advanced methods, such as the Mamdani fuzzy logic system, to deliver personalized insights based on real-time sleep data, but also integrates gamification techniques to maintain and boost user engagement over time. By focusing on user behavior and the practical application of personalized data, this app aims to make a tangible difference in how individuals approach and manage their sleep habits.
+
+At the core of this project is the challenge of ensuring that users remain consistently engaged with the app, which is a known problem in the realm of health apps. Many sleep apps often struggle with maintaining user engagement beyond initial usage. This project purposefully addresses that issue by combining two proven strategies: gamification and actionable feedback through fuzzy logic. Gamification provides users with rewards and challenges, creating an interactive environment where sleep improvements are incentivized, while actionable insights derived from the Mamdani fuzzy logic system give users the tools they need to understand their sleep patterns in a meaningful and practical way. This combination not only motivates users to keep coming back to the app but also encourages them to make immediate behavioral changes. Additionally, by providing these features for free and not relying on a paywall, the project indirectly removes a significant barrier to user participation, which is a common deterrent for many users in other sleep apps that often require a subscription for access to premium features.
+
+The broader impact of this project goes beyond improving sleep quality—it could pave the way for future health and wellness apps that integrate complex algorithms like fuzzy logic with interactive, user-centric features. By addressing both behavioral engagement and the personalization of health data, NocOps demonstrates how technology can be used not only to monitor and track physical metrics but also to inspire meaningful changes in user behavior. Sleep, being such an essential factor in overall health, is just the beginning—this approach could easily be applied to other health domains, creating a new paradigm for how individuals engage with their wellness.
+
+\printbibliography
+
+\end{document}
