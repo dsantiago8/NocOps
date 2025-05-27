@@ -49,3 +49,8 @@ Ensure the following packages are enabled:
 - HealthKit Integration (built-in)
 
 Set the deployment target to iOS 17.0.
+
+
+## 📎 Related Files
+
+- [`Comprehensive_Final_Paper.pdf`](./Comprehensive_Final_Paper.pdf): Full project report outlining the background, methods, results, and discussion.
